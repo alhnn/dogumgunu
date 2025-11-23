@@ -97,7 +97,7 @@ h1,h2,p{ font-family:"Dancing Script", cursive; }
 <div id="password-screen">
     <div class="password-box">
         <h2>İrem için bir sürpriz 💕</h2>
-        <input id="passwordInput" placeholder="Şifre…">
+        <input id="passwordInput" placeholder="Şifreyi gir balımm ( GG.AA.YY ) ">
         <button id="passwordBtn">Gönder</button>
     </div>
 </div>
@@ -143,7 +143,7 @@ for(let i=0;i<18;i++){
 
 document.getElementById("passwordBtn").onclick=()=>{
     const val=document.getElementById("passwordInput").value.trim().toLowerCase();
-    if(val==="4 eylül 2023"){
+    if(val==="04.09.2023"){
         document.getElementById("password-screen").style.display="none";
         const music=document.getElementById("bg-music");
         music.play();
@@ -151,7 +151,7 @@ document.getElementById("passwordBtn").onclick=()=>{
         smoke.style.display="block";
         setTimeout(()=>{document.getElementById("neon-text").style.display="block";},800);
         setTimeout(()=>{document.getElementById("envelope-wrapper").style.display="block";},1400);
-    } else alert("Yanlış 💔");
+    } else alert("Yanlış girdin 💔 :( 💔");
 };
 
 const envelope=document.getElementById("envelope");
@@ -176,4 +176,5 @@ letterButton.onclick=(e)=>{
 
 </body>
 </html>
+
 
