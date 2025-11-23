@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<title>İrem’e Özel</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+
+<style>
+
+/* ————————————————————————————
+// GENEL MOBILE-FIRST TASARIM
+———————————————————————————— */
+body {
+    margin: 0;
+    overflow: hidden;
+    background: #ffbfd8;
+    font-family: "Poppins", sans-serif;
+    touch-action: manipulation;
+}
+
+/* Yazı font */
+h1, h2, p {
+    font-family: "Dancing Script", cursive;
+}
+
+/* ————————————————————————————
+// ARKA PLAN BOKEH ANİMASYONU
+———————————————————————————— */
+#bokeh-bg {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    z-index: -1;
+}
+
+.bokeh {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 130, 170, 0.25);
+    filter: blur(12px);
+    animation: floatBokeh 12s infinite ease-in-out;
+}
+
+@keyframes floatBokeh {
+    0% { transform: translateY(100vh) scale(0.6); opacity: .4; }
+    50% { opacity: .9; }
+    100% { transform: translateY(-20vh) scale(1.3); opacity: .3; }
+}
+
+/* ————————————————————————————
+// ŞİFRE EKRANI
+———————————————————————————— */
+#password-screen {
+    position: fixed;
+    inset: 0;
+    background: rgba(255, 180, 210, 0.5);
+    backdrop-filter: blur(12px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+}
+
+.password-box {
+    width: 90%;
+    max-width: 350px;
+    background: white;
+    padding: 25px;
+    border-radius: 25px;
+    text-align: center;
+    box-shadow: 0 0 25px rgba(255, 80, 150, 0.5);
+}
+
+.password-box input {
+    width: 100%;
+    padding: 14px;
+    font-size: 18px;
+    border: 2px solid #ff7fb9;
+    border-radius: 12px;
+}
+
+.password-box button {
+    margin-top: 15px;
+    padding: 12px;
+    width: 100%;
+    background: #ff4fa3;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 18px;
+}
+
+/* ————————————————————————————
+// SİS (DRAMATİK)
+———————————————————————————— */
+#pink-smoke {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0;
+    display: none;
+    background: radial-gradient(circle,
+        rgba(255,120,180,0.7),
+        rgba(255,70,150,0.5),
+        rgba(255,120,200,0.1)
+    );
+    animation: smokeBoom 7s ease-out forwards;
+    filter: blur(10px);
+}
+
+@keyframes smokeBoom {
+    0% { opacity: 1; transform: scale(0.7); filter: blur(5px);}
+    40% { opacity: 1; transform: scale(1.8); filter: blur(20px);}
+    60% { opacity: .9; transform: scale(2.3); filter: blur(30px);}
+    100% { opacity: 0; transform: scale(4); filter: blur(40px);}
+}
+
+/* ————————————————————————————
+// NEON “İyi ki Doğdun İrem”
+———————————————————————————— */
+#neon-text {
+    position: fixed;
+    top: 7vh;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 8vw;
+    color: #ff48c4;
+    text-shadow:
+        0 0 10px #ff48c4,
+        0 0 20px #ff48c4,
+        0 0 35px #ff48c4;
+    opacity: 0;
+    animation: neonGlow 3s ease-in-out forwards;
+    display: none;
+}
+
+@keyframes neonGlow {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+/* ————————————————————————————
+// ZARF (Mobil Ölçek)
+———————————————————————————— */
+.envelope-wrapper {
+    position: fixed;
+    left: 50%;
+    top: 55vh;
+    transform: translate(-50%, -50%);
+    perspective: 900px;
+    display: none;
+}
+
+.envelope {
+    width: 75vw;
+    max-width: 300px;
+    height: 48vw;
+    max-height: 200px;
+    position: relative;
+    transform-style: preserve-3d;
+    cursor: pointer;
+    transition: 1.2s;
+}
+
+/* Zarf açılır */
+.envelope.open .top {
+    transform: rotateX(-180deg);
+}
+
+/* Zarf parçaları */
+.envelope .top {
+    width: 100%;
+    height: 50%;
+    background: #ff76b9;
+    position: absolute;
+    top: 0;
+    clip-path: polygon(0 0, 100% 0, 50% 100%);
+    transform-origin: top;
+    transition: 1s;
+}
+
+.envelope .bottom,
+.envelope .left,
+.envelope .right {
+    background: #ff9ecf;
+    position: absolute;
+}
+
+.envelope .bottom { bottom: 0; width: 100%; height: 50%; }
+
+.envelope .left {
+    width: 50%; height: 100%; left: 0;
+    clip-path: polygon(0 0, 100% 50%, 0 100%);
+}
+
+.envelope .right {
+    width: 50%; height: 100%; right: 0;
+    clip-path: polygon(100% 0, 0 50%, 100% 100%);
+}
+
+/* ————————————————————————————
+// MEKTUP (Alt Gölge + Üst Buton)
+———————————————————————————— */
+.letter {
+    position: absolute;
+    width: 85%;
+    height: 85%;
+    background: white;
+    border-radius: 15px;
+    left: 50%;
+    top: 56%;
+    transform: translate(-50%, -50%) scale(.7);
+    opacity: 0;
+    padding: 20px;
+    text-align: center;
+
+    /* Pembe + Altın Glow */
+    box-shadow:
+        0 0 30px rgba(255, 110, 180, .7),
+        0 0 3px 3px gold,
+        0 15px 25px rgba(0,0,0,.25);   /* ✔ gölge eklendi */
+
+    transition: 1.4s ease;
+}
+
+.envelope.open .letter {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1) translateZ(120px);
+}
+
+/* ————————————————————————————
+// Mektubun ÜSTÜNDE "Buraya Bas"
+———————————————————————————— */
+#letter-button {
+    position: absolute;
+    top: -45px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #ff49b9;
+    padding: 10px 18px;
+    border-radius: 15px;
+    color: white;
+    font-size: 16px;
+    box-shadow: 0 0 15px rgba(255,0,120,.5);
+    z-index: 9999;
+    opacity: 0;
+    transition: .8s;
+    display: none;
+}
+
+/* Açıldığında buton görünür */
+.envelope.open #letter-button {
+    opacity: 1;
+}
+
+/* ————————————————————————————
+// PEMBE KELEBEK ANİMASYONU
+———————————————————————————— */
+.butterfly {
+    position: fixed;
+    width: 32px;
+    height: 32px;
+
+    background: url('image.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+
+    animation: fly 5s ease-out forwards;
+    pointer-events: none;
+}
+
+@keyframes fly {
+    0% { transform: translateY(100vh) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(-20vh) rotate(360deg); opacity: 0; }
+}
+
+/* ————————————————————————————
+// SLALOM PEMBE ÇİZGİLER
+———————————————————————————— */
+.slalom {
+    position: fixed;
+    bottom: 0;
+    width: 6px;
+    height: 200%;
+    background: linear-gradient(45deg, #ff7fb9 25%, transparent 25%, transparent 50%, #ff7fb9 50%, #ff7fb9 75%, transparent 75%, transparent);
+    background-size: 20px 20px;
+    animation: slalomMove 6s linear infinite;
+    z-index: -1; 
+}
+
+.slalom.left { left: 10px; }
+.slalom.right { right: 10px; }
+
+@keyframes slalomMove {
+    0% { transform: translateY(100%); }
+    100% { transform: translateY(-100%); }
+}
+
+</style>
+</head>
+<body>
+
+<!-- ————————————————
+// MÜZİK
+——————————————— -->
+<audio id="bg-music" src="music.mp4" autoplay loop></audio>
+
+<!-- ————————————————
+// BOKEH
+——————————————— -->
+<div id="bokeh-bg"></div>
+
+<!-- ————————————————
+// SLALOM ÇİZGİLER
+——————————————— -->
+<div class="slalom left"></div>
+<div class="slalom right"></div>
+
+<!-- ————————————————
+// ŞİFRE
+——————————————— -->
+<div id="password-screen">
+    <div class="password-box">
+        <h2>İrem için bir sürpriz 💕</h2>
+        <input id="passwordInput" placeholder="Şifre…">
+        <button id="passwordBtn">Gönder</button>
+    </div>
+</div>
+
+<!-- SIS -->
+<div id="pink-smoke"></div>
+
+<!-- Neon Yazı -->
+<div id="neon-text">İyi ki Doğdun İrem 💖</div>
+
+<!-- ZARF -->
+<div class="envelope-wrapper" id="envelope-wrapper">
+    <div class="envelope" id="envelope">
+
+        <div class="top"></div>
+        <div class="bottom"></div>
+        <div class="left"></div>
+        <div class="right"></div>
+
+        <!-- Mektubun üstündeki buton -->
+        <div id="letter-button">Buraya Bas 💖</div>
+
+        <div class="letter">
+            <h2>İrem'ime… 💗</h2>
+            <p>
+                Sen hayatımın en tatlı pembesisin…  
+                Gülüşün içimi ısıtıyor, adın kalbimde çiçek açtırıyor.  
+                İyi ki doğdun meleğim…  
+                Seni çok seviyorum. 💞  
+            </p>
+        </div>
+    </div>
+</div>
+
+<script>
+
+/* ————————————————————————————
+// BOKEH OLUŞTURMA
+———————————————————————————— */
+for (let i=0; i<18; i++) {
+    const b = document.createElement("div");
+    b.className = "bokeh";
+    const size = Math.random()*80+20;
+    b.style.width = size+"px";
+    b.style.height = size+"px";
+    b.style.left = Math.random()*100+"vw";
+    b.style.animationDelay = Math.random()*10+"s";
+    document.getElementById("bokeh-bg").appendChild(b);
+}
+
+/* ————————————————————————————
+// ŞİFRE → SİS PATLASIN & MÜZİK ÇALSIN
+———————————————————————————— */
+document.getElementById("passwordBtn").onclick = () => {
+    const val = document.getElementById("passwordInput").value.trim().toLowerCase();
+
+    if (val === "4 eylül 2023") {
+
+        document.getElementById("password-screen").style.display = "none";
+
+        // Müziği başlat
+        const music = document.getElementById("bg-music");
+        music.play();
+
+        // Sis
+        const smoke = document.getElementById("pink-smoke");
+        smoke.style.display = "block";
+
+        // Neon yazı
+        setTimeout(()=>{
+            document.getElementById("neon-text").style.display="block";
+        },800);
+
+        // Zarf
+        setTimeout(()=>{
+            document.getElementById("envelope-wrapper").style.display="block";
+        },1400);
+
+    } else {
+        alert("Yanlış 💔");
+    }
+};
+
+/* ————————————————————————————
+// ZARFA DOKUNUNCA AÇILSIN
+———————————————————————————— */
+const envelope = document.getElementById("envelope");
+const letterButton = document.getElementById("letter-button");
+
+envelope.addEventListener("click", () => {
+    envelope.classList.add("open");
+    letterButton.style.display = "block";
+
+    // Kelebek uçuşu
+    for (let i=0;i<10;i++){
+        const bt = document.createElement("div");
+        bt.className="butterfly";
+        bt.style.left = Math.random()*100+"vw";
+        bt.style.animationDuration = (Math.random()*3+3)+"s";
+        document.body.appendChild(bt);
+        setTimeout(()=>bt.remove(),6000);
+    }
+});
+
+/* ————————————————————————————
+// Buraya Bas → YouTube linki
+———————————————————————————— */
+letterButton.onclick = (e) => {
+    e.stopPropagation();
+    window.open("https://www.youtube.com/watch?v=s-BXBAJ7AmU", "_blank");
+};
+
+</script>
+
+</body>
+</html>
